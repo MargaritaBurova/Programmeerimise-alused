@@ -1,0 +1,30 @@
+def show():
+    print("------------------")
+    for todo in todos:
+        print (todo)
+def adder():
+    userInput = input("sisesta tegevus")
+    todos.append(userInput)
+    show()
+
+def deleter():
+    userInput = input("sisesta tegevus mida tahad kustutada")
+    todos.remove(userInput)
+    print("------------------")
+    show()
+def changer():
+    userInput = input("sisesta tegevus mida tahad muuta")
+    findIndex = todos.index(userInput)
+    userInput2 = input("sisesta tegevus mida tahad kirjutada vana asemel")
+    todos[findIndex] = userInput2
+    show()
+
+todos = ["buy milk", "buy eggs"]
+print("1 - add todo 2 - delete todo 3 - change todo")
+choose = input("vali mida sa tahad teha?")
+if choose == "1":
+    adder()
+elif choose== "3":
+    changer()
+else:
+    deleter()
