@@ -1,0 +1,33 @@
+###### https://www.tthk.ee/
+
+# 
+# url = "https://www.tthk.ee/sisseastujale/"
+# response = requests.get(url)
+# 
+# soup = BeautifulSoup(response.text, "html.parser")
+
+from bs4 import BeautifulSoup
+import requests
+
+url = input('Enter a URL (include `http://`): ')
+response = requests.get(url)
+html = response.text
+soup = BeautifulSoup(html,"html.parser")
+
+
+# print(html)
+#  
+# list = []
+# for i in soup.find_all("a",href=True):
+#     list.append(i)
+#     print("leiitud links: ", i)
+
+def upp ():
+    for i in soup.find_all("h3"):
+        for a in i.find_all("a"):
+            Text = a.text.strip()
+            print(Text)
+upp() 
+
+
+
