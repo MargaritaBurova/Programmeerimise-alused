@@ -1,0 +1,96 @@
+# muusika_andmebaas = [
+#     {"id":1, "artist": 'Eminem', 'Title':"The Real Slim Shandy"},
+#     {"id":2, "artist": 'Adele', 'Title':"Rolling in the Deep"},
+#     {"id":3, "artist": 'Billie Eilish', 'Title':"Bad Guy"}
+#     ]
+# print(muusika_andmebaas[0]["Title"])
+# 
+# def otsi_muusikat(par):
+#     result = []
+#     for muusika in muusika_andmebaas:
+#         if par in muusika["Title"] or par in muusika["artist"]:
+#             result.append(muusika)
+#             
+#             
+#     if result:
+#         for muusika in result:
+#             print(muusika['artist'],muusika['Title'])
+#     return result
+# 
+# 
+# userInput = otsi_muusikat(input("sisesta muusikat"))
+# print(userInput)
+
+# # # hinded = {
+# # #     "Mari": {
+# # #         "matemaatika":[4,5,3],
+# # #         "eesti keel":[5,4],
+# # #         "keemia":[3]
+# # #         },
+# # #     "Jüri": {
+# # #         "matemaatika":[2,3],
+# # #         "eesti keel":[3],
+# # #         "keemia":[4,4,5]
+# # #         },
+# # #     "Anna": {
+# # #         "matemaatika":[5,5],
+# # #         "eesti keel":[5,4],
+# # #         "keemia":[3,5]
+# # #         }
+# # #     }
+# # # 
+# # # keskmine = 0
+# # # tulemus = 0
+# # # count = 0
+# # # for aine in hinded[f"Mari ,Jüri,Anna"]:
+# # #     for hind in hinded["Mari","Jüri","Anna"][aine]:
+# # #         tulemus = tulemus + hind
+# # #         count += 1
+# # # keskmine = tulemus / count
+# # # print("Mari:",keskmine,"Jüri:",keskmine,"Anna:",keskmine)
+
+
+# for aine in hinded["Jüri"]:
+#     for hind in hinded["Jüri"][aine]:
+#         tulemus = tulemus + hind
+#         count += 1
+# keskmine = tulemus / count
+# print("Jüri:", keskmine)
+# 
+# for aine in hinded["Anna"]:
+#     for hind in hinded["Anna"][aine]:
+#         tulemus = tulemus + hind
+#         count += 1
+# keskmine = tulemus / count
+# print("Anna:", keskmine)
+
+
+hinded = {
+    "Mari": {
+        "matemaatika": [4, 5, 3],
+        "eesti keel": [5, 4],
+        "keemia": [3]
+    },
+    "Jüri": {
+        "matemaatika": [2, 3],
+        "eesti keel": [3],
+        "keemia": [4, 4, 5]
+    },
+    "Anna": {
+        "matemaatika": [5, 5],
+        "eesti keel": [5, 4],
+        "keemia": [3, 5]
+    }
+}
+
+# Arvutame iga õpilase keskmise
+for õpilane, ained in hinded.items():
+    tulemus = 0
+    count = 0
+    for aine, hinded_aine in ained.items():
+        tulemus += sum(hinded_aine)
+        count += len(hinded_aine)
+    
+    keskmine = tulemus / count
+    print(f"{õpilane}: {keskmine:.2f}")
+
