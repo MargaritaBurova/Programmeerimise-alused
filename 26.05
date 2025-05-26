@@ -1,0 +1,73 @@
+from rich.console import Console
+from rich.table import Table
+from rich.text import Text
+import random 
+
+# console = Console()
+# for i in range(5,0,-1):
+#     console.log(f"[bold green]Allien will beattak your ship after {i} sec")
+#     sleep(1)
+# console.log("You are attacked")
+
+console = Console()
+
+
+class CrewMember:
+    def __init__(self,name,role):
+        self.name = name
+        self.role = role
+        self.hp = 100
+        self.power = random.randint(15,30)
+        self.status = True
+        
+class Alien:
+    def __init__(self):
+        self.agression = random.randint(1,10)
+        self.hp = 120
+        
+    def attack():
+        pass
+    def is_alive
+        
+class Ship:
+    def __init__(self):
+        self.rooms = ["engine room","Medical block","Warehouse","Navigatsion center"]
+        self.status = True
+        
+    def trigger_alarm():
+        pass
+    def shou_status():
+        pass
+        
+class Mission:
+    def __init__(self,crewList):
+        self.crew = crewList
+        self.alien = Alien()
+        self.ship = Ship()
+        
+    def summury(self):
+        table = Table(Title= "ekipaaž")
+        table.add_column("Nimi", style='yellow')
+        table.add_column("Role", style='green')
+        table.add_column("Health", style='red')
+        table.add_column("ststus", style='blue')
+        
+        for crewMember in self.crew:
+            if crewMember.status == False:
+                status = "Died"
+            else:
+                status = "Alive"
+            table.add_row(crewMember.name,crewMember.role,str(crewMember.hp),status)
+        console.print(table)
+        
+crew = [
+    CrewMember("Ripli","Capitan"),
+    CrewMember("Dallas","Sailor"),
+    CrewMember("Esh","Scinse officer"),
+    CrewMember("Parker","Engineer")
+    ]
+mission1 = Mission(crew)
+mission1.summary()
+        
+    
+    
