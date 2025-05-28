@@ -1,0 +1,124 @@
+from rich.console import Console
+from rich.table import Table
+import random
+import time
+
+console = Console()
+
+class CrewMember:
+    def __init__(self, name, role):
+        self.name = name
+        self.role = role
+        self.hp = 100
+        self.power = random.randint(15, 30)
+        self.status = True
+
+    def attack_alien(self, alien):
+        if self.status:
+            damage = self.power + random.randint(-5, 5)
+            alien.hp -= damage
+            console.log(f"[green]{self.name} ({self.role}) attacks Alien for {damage} damage!")
+            if alien.hp <= 0:
+                alien.hp = 0
+                console.log("[bold red]Alien is defeated!")
+
+    def injure(self, damage):
+        self.hp -= damage
+        if self.hp <= 0:
+            self.status = False
+            self.hp = 0
+            console.log(f"[red]{self.name} ({self.role}) was killed by the alien!")
+        else:
+            console.log(f"[yellow]{self.name} ({self.role}) took {damage} damage! Remaining HP: {self.hp}")
+
+class Alien:
+    def __init__(self):
+        self.aggression = random.randint(1, 10)
+        self.hp = 120
+
+    def is_alive(self):
+        return self.hp > 0
+
+    def attack(self, crew_member):
+        damage = random.randint(10, 25)
+        console.log(f"[bold magenta]Alien attacks {crew_member.name} for {damage} damage!")
+        crew_member.injure(damage)
+
+class Ship:
+    def __init__(self):
+        self.rooms = ["Engine Room", "Medical Block", "Warehouse", "Navigation Center"]
+        self.status = "All systems are running by default"
+
+    def trigger_alarm(self):
+        console.log(f"[bold red]ALERT! Intruder detected!")
+
+    def show_status(self):
+        console.log(f"[blue]Ship status: {self.status}")
+
+class Mission:
+    def __init__(self, crewList):
+        self.crew = crewList
+        self.alien = Alien()
+        self.ship = Ship()
+
+    def simulate(self):
+        console.print(f"[bold green]The mission begins!")
+        self.ship.show_status()
+        time.sleep(1)
+
+        for round in range(1, 10):
+            if not self.alien.is_alive():
+                console.print(f"[bold green]The crew defeated the Alien!")
+                break
+
+            console.print(f"[bold]Round {round}")
+            room = random.choice(self.ship.rooms)
+            console.print(f"Scanning room: {room}")
+            time.sleep(1)
+
+            if random.random() < 0.7 and self.alien.is_alive():
+                self.ship.trigger_alarm()
+
+            alive_crew = [member for member in self.crew if member.status]
+
+            if not alive_crew:
+                break
+
+            victim = random.choice(alive_crew)
+            self.alien.attack(victim)
+
+            attackers = [member for member in alive_crew if member != victim]
+            if attackers:
+                attacker = random.choice(attackers)
+                attacker.attack_alien(self.alien)
+
+            if not any(member.status for member in self.crew):
+                console.print(f"[bold red]The Alien survived. The crew is gone.")
+                break
+
+    def summary(self):
+        table = Table(title="Crew Summary")
+        table.add_column("Name", style='yellow')
+        table.add_column("Role", style='green')
+        table.add_column("Health", style='red')
+        table.add_column("Status", style='blue')
+
+        for crewMember in self.crew:
+            status = "Alive" if crewMember.status else "Dead"
+            table.add_row(crewMember.name, crewMember.role, str(crewMember.hp), status)
+
+        console.print(table)
+
+
+
+crew = [
+    CrewMember("Ripley", "Captain"),
+    CrewMember("Dallas", "Sailor"),
+    CrewMember("Ash", "Science Officer"),
+    CrewMember("Parker", "Engineer")
+]
+
+mission1 = Mission(crew)
+mission1.simulate()
+mission1.summary()
+
